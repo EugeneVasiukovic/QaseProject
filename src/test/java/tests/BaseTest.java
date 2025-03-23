@@ -60,4 +60,3 @@ public class BaseTest {
         getWebDriver().quit();
     }
 }
-
