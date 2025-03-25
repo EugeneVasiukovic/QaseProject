@@ -34,6 +34,6 @@ public class LoginPage extends BasePage{
 
     public ProjectListPage login(String email, String password){
         fillLoginForm(email,password);
-        return new ProjectListPage();
+        return this;
     }
 }
