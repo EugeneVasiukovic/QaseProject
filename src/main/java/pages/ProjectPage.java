@@ -10,7 +10,6 @@ public class ProjectPage extends BasePage {
     private static final SelenideElement CREATE_SUITE = $x("//*[@id='create-suite-button']");
     private static final SelenideElement DELETE_SUITE = $x("//*[@class='VdImN8 HL2YT7']");
     private static final SelenideElement CREATE_TEST_CASE = $x("//*[@id='create-case-button']");
-    private static final SelenideElement BUTTON_ADD_TEST_CASE = $x("//*[@class='ihH2PP G1dmaA ecSEF_ eij1r4 m8z14Q']");
     private static final SelenideElement DELETE_TEST_CASE = $x("//*[@type=\"button\" and @aria-label=\"Delete\"]");
 
 

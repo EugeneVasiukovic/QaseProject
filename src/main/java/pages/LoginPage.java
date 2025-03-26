@@ -32,7 +32,7 @@ public class LoginPage extends BasePage{
         return this;
     }
 
-    public ProjectListPage login(String email, String password){
+    public LoginPage login(String email, String password){
         fillLoginForm(email,password);
         return this;
     }

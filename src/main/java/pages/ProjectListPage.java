@@ -13,17 +13,19 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ProjectListPage extends BasePage {
     private static final SelenideElement CREATE_NEW_PROJECT = $x("//*[text()='Create new project']");
     private static final SelenideElement SELECT_DELETE_BUTTON = $x("//*[@data-testid='remove']");
-    private static final SelenideElement BUTTON_DELETE_POPUP = $x("//*[@class=\"TWyAWk wTBhSN OqQ8EY v2rESE\"]");
+    private static final SelenideElement BUTTON_DELETE_POPUP = $x("//*[@type='button']/span/span[text()='Delete project']");
     private static final SelenideElement NAV_MENU_ELEMENT = $(By.linkText("Projects"));
+    private static final String NAVIGATE_PROJECT = "//*[@class='cx2QU4' and text()='%s']";
+    private static final String NAME_PROJECT ="//*[@id='application-content']//*[a[text()='%s']]/a";
+    private static final String PROJECT_DELETE = "//tr[td[3]/div/div/a[text()='%s']]//button[@type='button' and @aria-label='Open action menu']";
 
     public ProjectListPage isOpened() {
         CREATE_NEW_PROJECT.shouldBe(Condition.visible);
         return this;
     }
     public ProjectListPage openProject(String nameProject){
-        String navigateProject = String.format("//*[@class='cx2QU4' and text()='%s']", nameProject);
-        SelenideElement projectNaviate = $x(navigateProject);
-        new Button().click(projectNaviate);
+        SelenideElement projectNavigate = $x(String.format(NAVIGATE_PROJECT, nameProject));
+        new Button().click(projectNavigate);
         return this;
     }
 
@@ -44,15 +46,11 @@ public class ProjectListPage extends BasePage {
     }
 
     public SelenideElement getProjectElement(String nameProject) {
-        return $x(String.format("//*[@id='application-content']/div/table/tbody/tr[td[3]/div/div/a[text()='%s']]", nameProject));
+        return $x(String.format(NAME_PROJECT, nameProject));
     }
 
     public ProjectListPage deleteProject(String nameProject) {
-        String deleteButtonXPath = String.format(
-                "//*[@id='application-content']/div/table/tbody/tr[td[3]/div/div/a[text()='%s']]" +
-                "//button[@type='button' and @aria-haspopup='true' and @aria-expanded='false' " +
-                "and @aria-label='Open action menu']", nameProject);
-        SelenideElement deleteButton = $x(deleteButtonXPath);
+        SelenideElement deleteButton = $x(String.format(PROJECT_DELETE, nameProject));
         new Button().click(deleteButton);
         new Button().click(SELECT_DELETE_BUTTON);
         new Button().click(BUTTON_DELETE_POPUP);
