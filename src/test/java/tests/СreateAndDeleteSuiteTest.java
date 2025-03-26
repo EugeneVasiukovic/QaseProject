@@ -23,15 +23,12 @@ public class СreateAndDeleteSuiteTest extends BaseTest {
         loginSteps
                 .login(USER, PASSWORD, LOGIN_URL);
         projectListSteps
-                .openProject("QA_Tms_Vasiukovich");
+                .createProject("QA_Tms_Vasiukovich");
+        projectSteps
+                .createTestSuite("testSuite123");
         projectSteps
                 .deleteTestSuite("testSuite123");
 
         Assert.assertTrue(projectPage.getNameSuite("testSuite123").exists());
-
-        projectListSteps
-                .backToPageCreateProject();
-        projectListSteps
-                .deleteProject("QA_Tms_Vasiukovich");
     }
 }

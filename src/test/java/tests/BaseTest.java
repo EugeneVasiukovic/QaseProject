@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.ProjectListPage;
@@ -57,6 +58,11 @@ public class BaseTest {
 
     @AfterMethod
     public void endTest(){
+        projectListSteps
+                .backToPageCreateProject();
+        projectListSteps
+                .deleteProject("QA_TmS_Vasiukovich");
+        Assert.assertTrue(projectListPage.getProjectElement("QA_TmS_Vasiukovich").exists());
         getWebDriver().quit();
     }
 }

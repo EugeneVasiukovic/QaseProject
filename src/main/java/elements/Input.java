@@ -7,10 +7,15 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class Input {
     String label;
+    private String xpath;
+    private int index;
+
     public String inputLocator = "//*[@name='%s']";
     public String formInput = "//*[@id='%s']";
-    public String inputLocatorXpath = "//*[@class='%s'";
 
+    public Input(String xpath, int index) {
+        this.xpath = String.format(xpath, index);
+    }
 
     public Input(String label) {
         this.label = label;
@@ -24,8 +29,8 @@ public class Input {
         $x(String.format(formInput, label)).shouldBe(Condition.visible).setValue(text);
         return this;
     }
-    public Input writeFormTcs(String text){
-        $x(String.format(inputLocatorXpath, label)).shouldBe(Condition.visible).setValue(text);
+    public Input writeFormTcs(String text) {
+        $x(xpath).shouldBe(Condition.visible).setValue(text);
         return this;
     }
 

@@ -11,6 +11,7 @@ public class ProjectPage extends BasePage {
     private static final SelenideElement DELETE_SUITE = $x("//*[@class='VdImN8 HL2YT7']");
     private static final SelenideElement CREATE_TEST_CASE = $x("//*[@id='create-case-button']");
     private static final SelenideElement DELETE_TEST_CASE = $x("//*[@type=\"button\" and @aria-label=\"Delete\"]");
+    private static final String INPUT_FORM_CREATE_TEST_CASE ="(//div[@contenteditable='true' and @class='ProseMirror toastui-editor-contents'])[%s]";
 
 
 
@@ -45,6 +46,13 @@ public class ProjectPage extends BasePage {
     private ProjectPage fillTestCaseform(String nameTestCase){
         new Button().click(CREATE_TEST_CASE);
         new Input("title").write(nameTestCase);
+        new Input(INPUT_FORM_CREATE_TEST_CASE, 1).writeFormTcs(nameTestCase);
+        new Input(INPUT_FORM_CREATE_TEST_CASE,2).writeFormTcs(nameTestCase);
+        new Input(INPUT_FORM_CREATE_TEST_CASE,3).writeFormTcs(nameTestCase);
+        new Button().clickButtonAddSteps();
+        new Input(INPUT_FORM_CREATE_TEST_CASE,4).writeFormTcs(nameTestCase);
+        new Input(INPUT_FORM_CREATE_TEST_CASE,5).writeFormTcs(nameTestCase);
+        new Input(INPUT_FORM_CREATE_TEST_CASE,6).writeFormTcs(nameTestCase);
         new Button().clickButtonForm();
         return this;
     }
@@ -59,9 +67,6 @@ public class ProjectPage extends BasePage {
     }
 
     public ProjectPage deleteTestCase(String nameTestCase){
-        String clickButtonXpath = String.format("//*[@class=\"YkyiUm t1vo_q\" and text()= '%s']", nameTestCase);
-        SelenideElement clickTestCase = $x(clickButtonXpath);
-        new Button().click(clickTestCase);
         new Button().click(DELETE_TEST_CASE);
         new Button().clickButtonDeleteTestCase();
         return this;
