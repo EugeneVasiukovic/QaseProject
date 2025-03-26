@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import elements.Button;
+import elements.Dropdown;
 import elements.Input;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -11,8 +12,10 @@ public class ProjectPage extends BasePage {
     private static final SelenideElement DELETE_SUITE = $x("//*[@class='VdImN8 HL2YT7']");
     private static final SelenideElement CREATE_TEST_CASE = $x("//*[@id='create-case-button']");
     private static final SelenideElement DELETE_TEST_CASE = $x("//*[@type=\"button\" and @aria-label=\"Delete\"]");
-    private static final String INPUT_FORM_CREATE_TEST_CASE ="(//div[@contenteditable='true' and @class='ProseMirror toastui-editor-contents'])[%s]";
-
+    private static final String INPUT_FORM_CREATE_TEST_CASE = "//*[text()='%s']/ancestor::div[contains(@class, 'form-group')]//div[@class='ProseMirror toastui-editor-contents']";
+    private static final String NAME_TEST_SUITE = "//h3[@class='IeCpCv' and text()= '%s']";
+    private static final String DELETE_BUTTON = "//a[@class='ZofjAx z7H5tt' and text()= '%s']/following-sibling::div//i[@class='fa fa-ellipsis-h']";
+    private static final String NAME_TEST_CASE = "//*[@class=\"OZXFF4\" and text()= '%s']";
 
 
 
@@ -29,14 +32,11 @@ public class ProjectPage extends BasePage {
     }
 
     public SelenideElement getNameSuite(String nameSuite) {
-        return $x(String.format("//h3[@class='IeCpCv' and text()= '%s']", nameSuite));
+        return $x(String.format(NAME_TEST_SUITE, nameSuite));
     }
 
     public ProjectPage deleteSuite(String nameSuite) {
-        String deleteButtonXPath = String.format(
-                "//a[@class='ZofjAx z7H5tt' and text()= '%s']" +
-                "/following-sibling::div//i[@class='fa fa-ellipsis-h']", nameSuite);
-        SelenideElement deleteButton = $x(deleteButtonXPath);
+        SelenideElement deleteButton = $x(String.format(DELETE_BUTTON,nameSuite));
         new Button().click(deleteButton);
         new Button().click(DELETE_SUITE);
         new Button().clickButtonForm();
@@ -46,13 +46,27 @@ public class ProjectPage extends BasePage {
     private ProjectPage fillTestCaseform(String nameTestCase){
         new Button().click(CREATE_TEST_CASE);
         new Input("title").write(nameTestCase);
-        new Input(INPUT_FORM_CREATE_TEST_CASE, 1).writeFormTcs(nameTestCase);
-        new Input(INPUT_FORM_CREATE_TEST_CASE,2).writeFormTcs(nameTestCase);
-        new Input(INPUT_FORM_CREATE_TEST_CASE,3).writeFormTcs(nameTestCase);
-        new Button().clickButtonAddSteps();
-        new Input(INPUT_FORM_CREATE_TEST_CASE,4).writeFormTcs(nameTestCase);
-        new Input(INPUT_FORM_CREATE_TEST_CASE,5).writeFormTcs(nameTestCase);
-        new Input(INPUT_FORM_CREATE_TEST_CASE,6).writeFormTcs(nameTestCase);
+        new Input(INPUT_FORM_CREATE_TEST_CASE, "Description").writeFormTestCase(nameTestCase);
+        new Dropdown()
+                .selectDropdownElements("suite")
+                .selectDropdownOptions("testSuite123");
+        new Dropdown()
+                .selectDropdownElements("0-severity")
+                .selectDropdownOptions("Minor");
+        new Dropdown()
+                .selectDropdownElements("0-priority")
+                .selectDropdownOptions("High");
+        new Dropdown()
+                .selectDropdownElements("0-type")
+                .selectDropdownOptions("Smoke");
+        new Dropdown()
+                .selectDropdownElements("0-layer")
+                .selectDropdownOptions("E2E");
+        new Dropdown()
+                .selectDropdownElements("0-is_flaky")
+                .selectDropdownOptions("Yes");
+        new Input(INPUT_FORM_CREATE_TEST_CASE,"Pre-conditions").writeFormTestCase(nameTestCase);
+        new Input(INPUT_FORM_CREATE_TEST_CASE,"Post-conditions").writeFormTestCase(nameTestCase);
         new Button().clickButtonForm();
         return this;
     }
@@ -63,7 +77,7 @@ public class ProjectPage extends BasePage {
     }
 
     public SelenideElement getNameTestCase(String nameTestCase){
-        return $x(String.format("//*[@class=\"OZXFF4\" and text()= '%s']", nameTestCase));
+        return $x(String.format(NAME_TEST_CASE, nameTestCase));
     }
 
     public ProjectPage deleteTestCase(String nameTestCase){

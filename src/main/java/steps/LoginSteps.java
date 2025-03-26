@@ -4,10 +4,10 @@ import io.qameta.allure.Step;
 import pages.LoginPage;
 
 
-public class loginSteps extends BaseSteps{
+public class LoginSteps extends BaseSteps{
     LoginPage loginPage;
 
-    public loginSteps() {
+    public LoginSteps() {
         this.loginPage = new LoginPage();
     }
 

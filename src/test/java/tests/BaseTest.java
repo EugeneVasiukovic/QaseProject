@@ -11,7 +11,7 @@ import pages.ProjectListPage;
 import pages.ProjectPage;
 import steps.ProjectListSteps;
 import steps.ProjectSteps;
-import steps.loginSteps;
+import steps.LoginSteps;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 
 public class BaseTest {
-    protected loginSteps loginSteps;
+    protected LoginSteps loginSteps;
     protected ProjectListSteps projectListSteps;
     protected ProjectListPage projectListPage;
     protected ProjectSteps projectSteps;
@@ -32,7 +32,7 @@ public class BaseTest {
 
 
     public void initPages(){
-        loginSteps = new loginSteps();
+        loginSteps = new LoginSteps();
         projectListSteps = new ProjectListSteps();
         projectListPage = new ProjectListPage();
         projectSteps = new ProjectSteps();
