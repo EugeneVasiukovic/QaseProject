@@ -59,7 +59,7 @@ public class ProjectPage extends BasePage {
         new Input("Pre-conditions").writeFormTestCase(nameTestCase);
         new Input("Post-conditions").writeFormTestCase(nameTestCase);
         new Button().click(ADD_STEP_BUTTON);
-        STEP_WRITE_INPUT.setValue("testCase123");
+        STEP_WRITE_INPUT.setValue(nameTestCase);
         new Button().click(BUTTON_FORM_CREATE_NEW_PROJECT);
         return this;
     }
