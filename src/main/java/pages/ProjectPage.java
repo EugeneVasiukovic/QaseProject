@@ -10,9 +10,12 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ProjectPage extends BasePage {
     private static final SelenideElement CREATE_SUITE = $x("//*[@id='create-suite-button']");
     private static final SelenideElement DELETE_SUITE = $x("//*[@class='VdImN8 HL2YT7']");
+    private static final SelenideElement ADD_STEP_BUTTON = $x("//*[@type='button']//*[text()=' Add step']");
     private static final SelenideElement CREATE_TEST_CASE = $x("//*[@id='create-case-button']");
     private static final SelenideElement DELETE_TEST_CASE = $x("//*[@type=\"button\" and @aria-label=\"Delete\"]");
-    private static final String INPUT_FORM_CREATE_TEST_CASE = "//*[text()='%s']/ancestor::div[contains(@class, 'form-group')]//div[@class='ProseMirror toastui-editor-contents']";
+    private static final SelenideElement BUTTON_FORM_CREATE_NEW_PROJECT = $x("//*[@type='submit']");
+    private static final SelenideElement BUTTON_FORM_DELETE_TEST_CASE = $x("(//*[@type=\"button\"])[18]");
+    private static final SelenideElement STEP_WRITE_INPUT = $x("(//*[@class = 'OwrMko']//*[contains(@class, 'ProseMirror toastui-editor-contents')])[1]");
     private static final String NAME_TEST_SUITE = "//h3[@class='IeCpCv' and text()= '%s']";
     private static final String DELETE_BUTTON = "//a[@class='ZofjAx z7H5tt' and text()= '%s']/following-sibling::div//i[@class='fa fa-ellipsis-h']";
     private static final String NAME_TEST_CASE = "//*[@class=\"OZXFF4\" and text()= '%s']";
@@ -22,7 +25,7 @@ public class ProjectPage extends BasePage {
     private ProjectPage fillSuiteForm(String nameSuite){
         new Button().click(CREATE_SUITE);
         new Input("title").writeForm(nameSuite);
-        new Button().clickButtonForm();
+        new Button().click(BUTTON_FORM_CREATE_NEW_PROJECT);
         return this;
     }
 
@@ -39,35 +42,25 @@ public class ProjectPage extends BasePage {
         SelenideElement deleteButton = $x(String.format(DELETE_BUTTON,nameSuite));
         new Button().click(deleteButton);
         new Button().click(DELETE_SUITE);
-        new Button().clickButtonForm();
+        new Button().click(BUTTON_FORM_CREATE_NEW_PROJECT);
         return this;
     }
 
     private ProjectPage fillTestCaseform(String nameTestCase){
         new Button().click(CREATE_TEST_CASE);
         new Input("title").write(nameTestCase);
-        new Input(INPUT_FORM_CREATE_TEST_CASE, "Description").writeFormTestCase(nameTestCase);
-        new Dropdown()
-                .selectDropdownElements("suite")
-                .selectDropdownOptions("testSuite123");
-        new Dropdown()
-                .selectDropdownElements("0-severity")
-                .selectDropdownOptions("Minor");
-        new Dropdown()
-                .selectDropdownElements("0-priority")
-                .selectDropdownOptions("High");
-        new Dropdown()
-                .selectDropdownElements("0-type")
-                .selectDropdownOptions("Smoke");
-        new Dropdown()
-                .selectDropdownElements("0-layer")
-                .selectDropdownOptions("E2E");
-        new Dropdown()
-                .selectDropdownElements("0-is_flaky")
-                .selectDropdownOptions("Yes");
-        new Input(INPUT_FORM_CREATE_TEST_CASE,"Pre-conditions").writeFormTestCase(nameTestCase);
-        new Input(INPUT_FORM_CREATE_TEST_CASE,"Post-conditions").writeFormTestCase(nameTestCase);
-        new Button().clickButtonForm();
+        new Input( "Description").writeFormTestCase(nameTestCase);
+        new Dropdown("Suite").dropdownSelectOption("testSuite123");
+        new Dropdown("Severity").dropdownSelectOption("Minor");
+        new Dropdown("Priority").dropdownSelectOption("High");
+        new Dropdown("Type").dropdownSelectOption("Smoke");
+        new Dropdown("Layer").dropdownSelectOption("E2E");
+        new Dropdown("Is flaky").dropdownSelectOption("Yes");
+        new Input("Pre-conditions").writeFormTestCase(nameTestCase);
+        new Input("Post-conditions").writeFormTestCase(nameTestCase);
+        new Button().click(ADD_STEP_BUTTON);
+        STEP_WRITE_INPUT.setValue("testCase123");
+        new Button().click(BUTTON_FORM_CREATE_NEW_PROJECT);
         return this;
     }
 
@@ -82,7 +75,7 @@ public class ProjectPage extends BasePage {
 
     public ProjectPage deleteTestCase(String nameTestCase){
         new Button().click(DELETE_TEST_CASE);
-        new Button().clickButtonDeleteTestCase();
+        new Button().click(BUTTON_FORM_DELETE_TEST_CASE);
         return this;
     }
 }

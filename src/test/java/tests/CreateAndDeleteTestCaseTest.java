@@ -2,6 +2,7 @@ package tests;
 
 import com.codeborne.selenide.Condition;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 public class CreateAndDeleteTestCaseTest extends BaseTest{
@@ -34,5 +35,13 @@ public class CreateAndDeleteTestCaseTest extends BaseTest{
                 .deleteTestCase("testCase123");
 
         Assert.assertTrue(projectPage.getNameTestCase("testCase123").exists());
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void deleteProject(){
+        projectListSteps
+                .backToPageCreateProject();
+        projectListSteps
+                .deleteProject("QA_TmS_Vasiukovich");
     }
 }

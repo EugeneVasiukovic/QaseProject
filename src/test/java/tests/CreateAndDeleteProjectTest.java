@@ -2,6 +2,7 @@ package tests;
 
 import com.codeborne.selenide.Condition;
 import org.testng.Assert;
+
 import org.testng.annotations.Test;
 
 public class CreateAndDeleteProjectTest extends BaseTest{
@@ -23,8 +24,10 @@ public class CreateAndDeleteProjectTest extends BaseTest{
         loginSteps
                 .login(USER, PASSWORD, LOGIN_URL);
         projectListSteps
-                .createProject("QA_TmS_Vasiukovich");
-        projectListSteps
                 .backToPageCreateProject();
+        projectListSteps
+                .deleteProject("QA_TmS_Vasiukovich");
+
+        Assert.assertTrue(projectListPage.getProjectElement("QA_TmS_Vasiukovich").exists());
     }
 }

@@ -15,9 +15,10 @@ public class ProjectListPage extends BasePage {
     private static final SelenideElement SELECT_DELETE_BUTTON = $x("//*[@data-testid='remove']");
     private static final SelenideElement BUTTON_DELETE_POPUP = $x("//*[@type='button']/span/span[text()='Delete project']");
     private static final SelenideElement NAV_MENU_ELEMENT = $(By.linkText("Projects"));
+    private static final SelenideElement BUTTON_FORM_CREATE_NEW_PROJECT = $x("//*[@type='submit']");
     private static final String NAVIGATE_PROJECT = "//*[@class='cx2QU4' and text()='%s']";
     private static final String NAME_PROJECT ="//*[@id='application-content']//*[a[text()='%s']]/a";
-    private static final String PROJECT_DELETE = "//tr[td[3]/div/div/a[text()='%s']]//button[@type='button' and @aria-label='Open action menu']";
+    private static final String PROJECT_DELETE = "//*[text()='%s']/ancestor::tbody//button[@aria-label=\"Open action menu\"]";
 
     public ProjectListPage isOpened() {
         CREATE_NEW_PROJECT.shouldBe(Condition.visible);
@@ -32,7 +33,7 @@ public class ProjectListPage extends BasePage {
     private ProjectListPage fillFormCreateProject(String nameProject) {
         new Button().click(CREATE_NEW_PROJECT);
         new Input("project-name").writeForm(nameProject);
-        new Button().clickButtonForm();
+        new Button().click(BUTTON_FORM_CREATE_NEW_PROJECT);
         return this;
     }
 
