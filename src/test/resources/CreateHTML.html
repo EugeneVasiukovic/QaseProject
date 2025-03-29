@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<h1>страницы</h1>
+<p>Это пример параграфа. Подробнее о теге &lt;p&gt; можно узнать <a href="https://www.w3schools.com/tags/tag_p.asp">здесь</a>.</p>
+
+<h2>Таблица</h2>
+<table>
+    <tr>
+        <th>Заголовок 1</th>
+        <th>Заголовок 2</th>
+        <th>Заголовок 3</th>
+    </tr>
+    <tr>
+        <td>Ячейка 1</td>
+        <td>Ячейка 2</td>
+        <td>Ячейка 3</td>
+    </tr>
+    <tr>
+        <td>Ячейка 4</td>
+        <td>Ячейка 5</td>
+        <td>Ячейка 6</td>
+    </tr>
+</table>
+
+<h2>Форма</h2>
+<div class="form-group">
+    <label for="textInput">Текстовое поле:</label>
+    <input type="text" id="textInput" name="textInput">
+</div>
+<div class="form-group">
+    <label for="checkbox">Чекбокс:</label>
+    <input type="checkbox" id="checkbox" name="checkbox">
+</div>
+<div class="form-group">
+    <label for="select">Выбор:</label>
+    <select id="select" name="select">
+        <option value="option1">Опция 1</option>
+        <option value="option2">Опция 2</option>
+        <option value="option3">Опция 3</option>
+    </select>
+</div>
+<button type="button">Кнопка</button>
+
+<h2>Изображение</h2>
+<img src="https://png.pngtree.com/background/20230611/original/pngtree-picture-of-a-blue-bird-on-a-black-background-picture-image_3124189.jpg" alt="изображения">
+</body>
+</html>
